@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step12_Prototype2.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ Prototype ]
+            - prototype은 constructor 함수에만 몰래 생성된다.
+            - 부모로부터 생성된 자식 object들은 __proto__라는 속성을 가짐
+            - 부모 유전자를 찾고싶다면 __proto__를 출력
+            - __proto__를 직접 등록하면 object끼리 상속기능 구현 가능
+        */
+        function Attend(n, a) {
+            this.name = n;
+            this.age = 5;
+            this.chk = function(){
+                console.log(`${this.name} ${this.age}살 출석완료`);
+            }
+        }
+
+        Attend.prototype.school = '팡팡유치원';
+        let st1 = new Attend('짱구', 3);
+
+        console.log(Attend.prototype);
+        console.log(st1.__proto__);
+
+        let parent = {name:'짱구'};
+        let child = {};
+
+        child.__proto__ = parent;
+        console.log(child.name);
+    </script>
+</body>
+</html>

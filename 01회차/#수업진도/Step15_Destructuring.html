@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step15_Destructuring.html</title>
+</head>
+<body>
+    <script>
+        let arr = [2,3,4];
+        let a = arr[0];
+        let b = arr[1];
+        let c = arr[2];
+
+        // [ Destructuring문법 ]
+        let [ d, e, f ] = [ 2, 3, 4 ];
+        let [ g, h , i = 5 ] = [ 2, 3 ];
+
+        let { name : j , age : k } = {
+            name : '짱구',
+            age : 5
+        };
+
+        function func1(name,age){
+            console.log(name);
+            console.log(age);
+        }
+        let obj1 = {name:'철수', age :7};
+        func1(obj1.name, obj1.age);
+    </script>
+</body>
+</html>

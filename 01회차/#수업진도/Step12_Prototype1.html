@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step12_Prototype1.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ Prototype ]
+            오브젝트생성기계.prototype = 오브젝트생성기계의 유전자
+
+            오브젝트생성기계.prototype 에 뭔가 변수나 함수가 들어가있다면
+            오브젝트생성기계로부터 생성되는 오브젝트들(자식들)은
+            전부 그걸 그대로 물려받아서 쓸 수 있다.
+
+            - prototype에는 값을 여러개 부여가능
+            - prototype에는 함수도 삽입가능
+
+            prototype에서 추가된 데이터들은 부모만 가지고 있음.
+        */
+        function Attend(n, a) {
+            this.name = n;
+            this.age = 5;
+            this.chk = function(){
+                console.log(`${this.name} ${this.age}살 출석완료`);
+            }
+        }
+
+        let st1 = new Attend('짱구', 3);
+        st1.chk();
+        console.log(Attend.prototype);
+
+        Attend.prototype.school = '팡팡유치원';
+        console.log(st1.school);
+
+        let myArr = [ 1, 2, 3 ]; 
+        // let myArr = new Array(1,2,3);
+        console.log(myArr.toString());
+
+        console.log(Array.prototype);
+        
+    </script>
+</body>
+</html>

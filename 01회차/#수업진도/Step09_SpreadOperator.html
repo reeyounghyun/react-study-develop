@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step09_SpreadOperator.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ Spread Operator ]
+            ...
+            괄호를 제거해주는 연산자
+            Array나 Object 자료형을 합치거나 복사할 때 사용
+            함수소괄호, 오브젝트 중괄호 내, 어레이 대괄호 내에서 사용
+        */
+        var myArr = ['짱구', '짱아'];
+        console.log(myArr);
+        console.log(...myArr);
+        console.log('------------------');
+
+        // 어레이 합치기
+        var a = [ 1, 2, 3 ];
+        var b = [ 4, 5 ];
+        var c = [ ...a, ...b ];
+
+        // 어레이 복사
+        var d = [ 1, 2, 3 ];
+        var e = [ ...d ];
+        e[0] = 4;
+
+        // 오브젝트
+        var o1 = { a:1, b:2 };
+        var o2 = { a:3, ...o1 };
+        console.log(o2);
+    </script>
+</body>
+</html>

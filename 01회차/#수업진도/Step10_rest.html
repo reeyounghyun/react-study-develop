@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step10_rest.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ Rest 파라미터 ]
+            function 함수(...파라미터){
+                console.log(파라미터);
+            }
+            - 매개변수가 여러개면 rest는 항상 마지막 매개변수로 넣어야 함
+            (a, ...파라미터)
+            - Rest파라미터는 2개이상 사용할 수 없다.
+            (...파라미터1, ...파라미터2)
+        */
+        function func1(a, b, ...param){
+            console.log(param);
+        }
+
+        func1(1,2,3,4,5,6,7);
+    </script>
+</body>
+</html>

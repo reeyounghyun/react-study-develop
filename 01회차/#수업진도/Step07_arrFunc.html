@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step07_arrFunc.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ Arrow Function ]
+            - Es6부터 추가
+        */
+
+        // 함수선언식
+        function fun1(){
+            // 실행문
+        }
+
+        // 함수표현식
+        const func2 = function (){
+            // 실행문
+        }
+
+        // 화살표함수
+        const func3 = () => {
+            // 실행문
+        }
+
+        // 1. 직관적
+        const doubleNum = (x) => {return x*2};
+        console.log(doubleNum(4));
+
+        // 2. 소괄호, 중괄호 생략이 가능
+        var plusNum = x => x + 2;
+        console.log(plusNum(4));
+
+        // 3. 내부에서 this값을 쓸 때 밖에 있던 this값을 그대로 사용
+        var obj1 = {
+            name : '짱구',
+            func : function(){
+                console.log(this);
+                /*
+                    메서드 안에서 쓴 this : 해당 메서드를 호출한 객체
+                */
+            }
+        };
+
+        obj1.func();
+
+        var obj2 = {
+            name : '짱구',
+            func : () => {
+                console.log(this); // window
+            }
+        };
+
+        obj2.func();
+
+        
+        console.log(this);
+    </script>
+</body>
+</html>

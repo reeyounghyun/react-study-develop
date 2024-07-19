@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step04_let_var.html</title>
+</head>
+<body>
+    <script>
+        let level1 = 10;
+        console.log(level1);
+
+        function levelUp(){
+            let level1 = 30;
+            console.log(level1);
+        }
+        levelUp();
+
+        if(true){
+            let level1 = 40;
+            console.log(level1);
+        }
+
+        console.log(level1);
+
+        for(var i=0; i<50; i++){}
+        console.log(i);
+
+    </script>
+</body>
+</html>

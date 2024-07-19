@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prototype_gallery.html</title>
+  <style>
+    html,
+    body,
+    div {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #gallery,
+    #detail,
+    #bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    #bg {
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      display: none;
+    }
+
+    #detail {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: none;
+    }
+
+    #detail img {
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h4 {
+      font-size: 10rem;
+    }
+
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="gallery"></div>
+  <div id="bg"></div>
+  <div id="detail"></div>
+  <div>
+    <h4>GALLERY</h4>
+  </div>
+  <script src="./script.js"></script>
+</body>
+
+</html>

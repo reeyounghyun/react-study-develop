@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step13_CLASS1.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ CLASS ]
+            - ES6부터 추가된 문법 constructor 만들기
+
+            class 부모 {
+                constructor(){
+                    this.name = '짱구';
+                }
+            }
+
+            let 자식 = new 부모();
+        */
+        // 1. 
+        class ParentOne {
+            constructor(n,a){
+                this.name = n;
+                this.age = a;
+                this.sayHi = function(){
+                    console.log('Hello!');
+                }
+            }
+        }
+
+        let child1 = new ParentOne('짱구', 5);
+
+        // 2. 
+        class ParentTwo {
+            constructor(n,a){
+                this.name = n;
+                this.age = a;
+            }
+            sayHi(){
+                console.log('Hello!');
+            }
+        }
+
+        let child2 = new ParentTwo('짱구', 5);
+    </script>
+</body>
+</html>

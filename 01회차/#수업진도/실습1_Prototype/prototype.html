@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototype_gallery.html</title>
+    <style>
+      html,
+      body,
+      div {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #gallery,
+      #detail,
+      #bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      #bg {
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        display: none;
+      }
+      #detail {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        display: none;
+      }
+      #detail img {
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+      }
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      h4 {
+        font-size: 10rem;
+      }
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gallery"></div>
+    <div id="bg"></div>
+    <div id="detail"></div>
+    <div>
+      <h4>GALLERY</h4>
+    </div>
+    <script>
+      let img = [
+        "img/1.webp",
+        "img/2.webp",
+        "img/3.webp",
+        "img/4.webp",
+        "img/5.webp",
+        "img/6.webp",
+        "img/7.webp",
+        "img/8.webp",
+        "img/9.webp",
+        "img/10.webp",
+        "img/11.webp",
+        "img/12.webp",
+        "img/13.webp",
+        "img/14.webp",
+        "img/15.webp",
+        "img/16.webp",
+        "img/17.webp",
+        "img/18.webp",
+        "img/19.webp",
+        "img/20.webp",
+        "img/21.webp",
+        "img/22.webp",
+        "img/23.webp",
+        "img/24.webp",
+        "img/25.webp",
+      ];
+
+      /*
+            1. makeImg라는 생성자함수를 만드세요.
+
+            이 생성자 함수는 아래와 같이 이미지의 번호를 랜덤으로 넣으면 그 이미지를 불러와서 #gallery안에 넣어주는 기능을 합니다.
+            let div0 = new makeImg(parseInt(Math.random()*24)+1);
+
+            기능 1. 배열의 img를 가져와서 #gallery에 추가해주는 함수
+            
+            기능 2. img의 width와 height값은 100이상 500이하로 랜덤으로 불러와져야 합니다.
+
+            기능 3. img의 위치값도 랜덤이어야 합니다.
+            
+
+            2. zImg라는 prototype을 만들어서 z-index값을 넣으면 해당 img에 z-index값이 들어가도록 해보세요.
+            div0.zImg(20); -> z-index 생기면 성공
+
+            3. speedImg라는 prototype을 만들어서 속도값을 받아오고 해당 img를 움직여보세요.
+            div0.speedImg(10); -> 움직이면 성공
+
+            4. speedImg에 해당 이미지들이 생성되는 시간도 받아와서 이미지가 생성되는 기능을 추가해보세요.
+            div0.speedImg(10, 10);
+
+            
+            하단의 코드가 작동하면 성공입니다.
+
+            let div0 = new makeImg(parseInt(Math.random()*24)+1);
+            div0.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+            div0.zImg(parseInt(Math.random()*10));
+            let div1 = new makeImg(parseInt(Math.random()*24)+1);
+            div1.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+            div1.zImg(parseInt(Math.random()*10));
+
+
+            5. div를 하나씩 만들어주기 귀찮은 상황이 발생!
+            매개변수에 숫자를 입력하면 그 숫자만큼 인스턴스를 만들어주는 기능을 하는 makeDivs라는 함수를 만들어보세요.
+            makeDivs(6);
+
+
+            6. 클릭시 이미지가 화면 가운대에 생기게 해보세요.
+
+            7. bg 클릭시 이미지가 없어지게 해보세요.
+        */
+
+        /*
+           1. makeImg라는 생성자함수를 만드세요.
+
+            기능 1. 배열의 img를 가져와서 #gallery에 추가해주는 함수
+
+            기능 2. img의 width와 height값은 100이상 500이하로 랜덤으로 불러와져야 합니다.
+        
+            기능 3. img의 위치값도 랜덤이어야 합니다.
+        */
+        function makeImg(no) {
+        this.no = no;
+        let gallery = document.getElementById("gallery");
+        let imgCr = document.createElement("img");
+
+        let ranNum = parseInt(Math.random() * 10) * 100;
+        while (ranNum < 100 || ranNum > 500) {
+          ranNum = parseInt(Math.random() * 10) * 100;
+        }
+        let height = document.body.offsetHeight;
+        let ranNum2 = parseInt(Math.random() * 100) * 10;
+        while (ranNum2 < 0 || ranNum2 > height - ranNum) {
+          ranNum2 = parseInt(Math.random() * 100) * 10;
+        }
+        imgCr.setAttribute("src", img[no]);
+        imgCr.setAttribute("width", ranNum);
+        imgCr.setAttribute("id", no);
+        imgCr.style.left = `${-ranNum}px`;
+        imgCr.style.top = `${ranNum2}px`;
+        gallery.append(imgCr);
+      }
+      makeImg.prototype.thisImg = function () {
+        let img = document.getElementById(this.no);
+        return img;
+      };
+      makeImg.prototype.zImg = function (z) {
+        let img = document.getElementById(this.no);
+        img.style.zIndex = z;
+      };
+      makeImg.prototype.speedImg = function (speed, time) {
+        let img = document.getElementById(this.no);
+        let startStr = img.style.left;
+        setTimeout(() => {
+          setInterval(() => {
+            let str = img.style.left;
+            let regex = /-[^0-9]/g;
+            let result = str.replace(regex, "");
+            let cal = parseInt(result) + 1;
+            let width = document.body.offsetWidth;
+            if (cal > width) {
+              img.style.left = startStr;
+            } else {
+              img.style.left = cal + "px";
+            }
+          }, speed);
+        }, time);
+      };
+
+      // let div0 = new makeImg(parseInt(Math.random()*24)+1);
+      // let div1 = new makeImg(parseInt(Math.random()*24)+1);
+      // let div2 = new makeImg(parseInt(Math.random()*24)+1);
+      // let div3 = new makeImg(parseInt(Math.random()*24)+1);
+      // let div4 = new makeImg(parseInt(Math.random()*24)+1);
+      // let div5 = new makeImg(parseInt(Math.random()*24)+1);
+      // let div6 = new makeImg(parseInt(Math.random()*24)+1);
+      // div0.speedImg(10, 10);
+      // div0.zImg(20);
+      // div1.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+      // div1.zImg(parseInt(Math.random()*10));
+      // div2.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+      // div2.zImg(parseInt(Math.random()*10));
+      // div3.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+      // div3.zImg(parseInt(Math.random()*10));
+      // div4.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+      // div4.zImg(parseInt(Math.random()*10));
+      // div5.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+      // div5.zImg(parseInt(Math.random()*10));
+      // div6.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
+      // div6.zImg(parseInt(Math.random()*10));
+
+      function makeDivs(n) {
+        let div = new Array(n);
+        for (let i = 0; i < n; i++) {
+          div[i] = new makeImg(parseInt(Math.random() * 24) + 1);
+          div[i].speedImg(
+            parseInt(Math.random() * 10),
+            parseInt(Math.random() * 1000 * 10)
+          );
+          div[i].zImg(parseInt(Math.random() * 10));
+          // console.log(div[i].thisImg())
+        }
+        return div;
+      }
+      makeDivs(6);
+
+      for (
+        let i = 0;
+        i < document.querySelectorAll("#gallery img").length;
+        i++
+      ) {
+        document
+          .querySelectorAll("#gallery img")
+          [i].addEventListener("click", function () {
+            let bg = document.getElementById("bg");
+            let imgCr = document.createElement("img");
+            console.log(this.src);
+            console.log(this.width);
+            imgCr.setAttribute("src", this.src);
+            imgCr.setAttribute("width", this.width);
+            let detail = document.getElementById("detail");
+            bg.style.display = "block";
+            detail.style.display = "block";
+            detail.append(imgCr);
+          });
+      }
+      document.querySelector("#bg").addEventListener("click", function () {
+        let bg = document.getElementById("bg");
+        bg.style.display = "none";
+        detail.style.display = "none";
+        document.querySelector("#detail img").remove();
+      });
+    </script>
+  </body>
+</html>

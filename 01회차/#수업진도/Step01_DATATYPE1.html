@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step01_DATATYPE1.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ 원시타입 ]
+            string, number, boolean, null, undefined
+
+            원시값은 읽기전용으로 변경 불가능한 값
+            원시값은 할당한 변수는 원시값 자체를 값으로 가짐
+
+            [ 참조타입 ]
+            object, array, function
+
+            참조값은 변경 가능한 값
+            참조값을 변수에 할당하면 변수에는 참조값이 저장
+        
+        */
+
+        var a = 0;
+        var b = a; 
+        b = 3;
+
+        var obj1 = { a: 'a' , b:'b'};
+        var obj2 = obj1;
+        obj2.a = 'd';
+         
+    </script>
+</body>
+</html>

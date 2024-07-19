@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step11_Constructor.html</title>
+</head>
+<body>
+    <script>
+        let st1 = {name:'짱구',age:5};
+        let st2 = {name:'짱아',age:1};
+
+        /*
+            [ Constructor ]
+            오브젝트 복사 해주는 문법
+
+            function 오브젝트생성기계(){
+                this.name = '짱구';
+                this.age = 5;
+            }
+            let 학생 = new 오브젝트생성기계();
+
+            this는 새로생성되는 오브젝트를 뜻함.(인스턴스)
+        */
+        function Student(){
+            this.name = '짱구';
+            this.age = 5;
+        }
+        let st3 = new Student();
+
+        function Attend(n, a) {
+            this.name = n;
+            this.age = 5;
+            this.chk = function(){
+                console.log(`${this.name} ${this.age}살 출석완료`);
+            }
+        }
+
+        let st4 = new Attend('짱구', 3);
+        st4.chk();
+    </script>
+</body>
+</html>

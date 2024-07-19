@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step03_let.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ var ]
+            재선언 O
+            재할당 O
+            범위 : 함수범위
+            호이스팅 : O
+
+            [ let ]
+            재선언 X
+            재할당 O
+            범위 : 스코프{}범위
+            호이스팅 : X(처럼 보이지만 일어남)
+
+            [ const ]
+            재선언 X
+            재할당 X
+            범위 : 스코프{}범위
+            호이스팅 : X(처럼 보이지만 일어남)
+        
+        */
+
+        let meal = '불고기';
+        meal = '비빔밥';
+
+        var age1 = 28;
+        age1 = 18;
+        var age1 = 'old';
+        console.log(age1);
+
+        let age2 = 28;
+        age2 = 18;
+        // let age2 = 25;
+        console.log(age2);
+
+    </script>
+</body>
+</html>

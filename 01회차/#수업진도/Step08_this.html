@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step08_this.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ this ]
+        */
+        /*
+            1. 단독으로 쓴 this는 global object
+            (브라우저에서 호출하는 경우 : window)를 가리킨다.
+        */
+        let x1 = this;
+        // console.log(x1);
+
+        /*
+            2. 함수 안에서 this는 함수의 주인에게 바인딩된다.
+            바인딩 : 연결된다 라는 뜻
+        */
+        function myFunc1(){
+            return this;
+        }
+        // console.log(myFunc1);
+
+        var myFunc2 = function(){
+            return this;
+        }
+        // console.log(myFunc2());
+
+
+        var num = 0;
+        function addNum(){
+            console.log(this.num); // 0
+            this.num = 100;
+            num++;
+
+            console.log(num); // 101
+            console.log(this.num); // 101
+            console.log(window.num); // 101
+            console.log(this.num === window.num); // true
+        }
+        // addNum();
+
+        /*
+            3. 메서드 안에서 쓴 this
+            메서드 내부에서 사용된 this는 해당 메서드를 호출한
+            오브젝트로 바인딩
+        */
+
+        var person1 = {
+            firstname : '신',
+            lastname : '짱구',
+            fullname : function(){
+                return this.firstname + '' + this.lastname;
+            }
+        }
+
+        /*
+            4. 이벤트 핸들러 안에서 쓴 this
+            이벤트 핸들러에서 this는 이벤트를 받는 HTML요소를 가리킴
+        */
+        // var btn = document.querySelector('#btn');
+        // btn.addEventListener('click', function(){
+        //     console.log(this);
+        // });
+
+        /*
+            5. 화살표 함수로 쓴 this
+        */
+        var Person = function(name, age) {
+            this.name = name;
+            this.age = age;
+            this.say = function(){
+                console.log(this);
+
+                // setTimeout(function(){
+                //     console.log(this);
+                //     console.log(this.name + '는' + this.age + '살');
+                // }, 100);
+
+                setTimeout(() => {
+                    console.log(this);
+                    console.log(this.name + '는' + this.age + '살');
+                }, 100);
+            }
+        }
+        var me = new Person('짱구', 5);
+    </script>
+</body>
+</html>

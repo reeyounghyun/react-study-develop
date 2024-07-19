@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step2_Var1.html</title>
+</head>
+<body>
+    <script>
+        /*
+            [ 전역변수, 지역변수 ]
+            전역변수 :
+            자바스크립트 코드 내에 어느곳에서나 접근할 수 있는 변수
+
+            지역변수 :
+            정의된 블럭{}내에서만 사용할 수 있는 변수
+            (함수 안 : 선언된 함수에서만 사용가능)
+        */
+
+        var name1 = '짱구'; // 전역변수
+
+
+        function func1(){
+            // var name1 = '짱구'; // 지역변수
+            // name1 = '짱아';
+            /*
+                var name1;
+            */
+            console.log(name1);
+            var name1 = '구';
+            // name1= '구';
+        }
+        func1();
+
+        // function func2(){
+        //     console.log(name1);
+        // }
+        // func2();
+
+
+    </script>
+</body>
+</html>

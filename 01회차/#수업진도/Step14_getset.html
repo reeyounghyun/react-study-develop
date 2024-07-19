@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step14_getset.html</title>
+</head>
+<body>
+    <script>
+        let human1 = {
+            name : '짱구',
+            age : 5, 
+            nextAge(){
+                return this.age + 1
+            }
+        }
+        human1.nextAge();
+
+        let human2 = {
+            name : '짱구',
+            age : 5, 
+            setAge(num){
+                this.age = num;
+            }
+        }
+        human2.setAge(10);
+
+        let human3 = {
+            name : '짱구',
+            age : 5, 
+            set setAge(num){
+                this.age = parseInt(num);
+            }
+        }
+        human3.setAge = 10;
+
+        let human4 = {
+            name : '짱구',
+            age : 5, 
+            get nextAge(){
+                return this.age + 1;
+            }
+        }
+        console.log(human4.nextAge);
+
+        class Human5 {
+            constructor(){
+                this.name = '철수';
+                this.age = 6;
+            }
+            get nextAge(){
+                return this.age + 1;
+            }
+            set setAge(num){
+                this.age = num;
+            }
+        }
+
+        let h = new Human5();
+        h.setAge = 10;
+        h.nextAge;
+    </script>
+</body>
+</html>
