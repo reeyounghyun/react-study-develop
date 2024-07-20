@@ -1,42 +1,3 @@
-const sceneInfo = [
-  {
-    // 0
-    type: "sticky",
-    heightNum: 5,
-    scrollHeight: 0,
-    objs: {
-      container: document.querySelector("#scroll-section-0"),
-    },
-  },
-  {
-    // 1
-    type: "normal",
-    heightNum: 5,
-    scrollHeight: 0,
-    objs: {
-      container: document.querySelector("#scroll-section-1"),
-    },
-  },
-  {
-    // 2
-    type: "sticky",
-    heightNum: 5,
-    scrollHeight: 0,
-    objs: {
-      container: document.querySelector("#scroll-section-2"),
-    },
-  },
-  {
-    // 3
-    type: "sticky",
-    heightNum: 5,
-    scrollHeight: 0,
-    objs: {
-      container: document.querySelector("#scroll-section-3"),
-    },
-  },
-];
-
 /* 
   1. 각 섹션에 대한 정보를 담은 배열을 만드세요.
   각 섹션에 대한 정보는 다음과 같습니다.
@@ -45,12 +6,6 @@ const sceneInfo = [
   - heightNum | 브라우저 높이의 X배로 각 섹션의 높이값 세팅
   - scrollHeight | 각 섹션의 스크롤 높이
   - 각 섹션 요소
-
-    예시)
-    type: "sticky", // 이 섹션은 스크롤 시 화면에 붙어있는 효과를 줍니다
-    heightNum: 5, // 이 섹션의 높이를 브라우저 높이의 5배로 설정합니다
-    scrollHeight: 0, // 스크롤 높이 (나중에 계산될 예정)
-
 
   2. setLayout이라는 함수를 만드세요. setLayout이라는 함수는 아래와 같은 기능을 합니다.
   각 섹션의 높이값을 설정하는 함수 : 브라우저 높이 * 각 씬의 heightNum
@@ -70,7 +25,6 @@ const sceneInfo = [
   6. calcValues라는 함수와 playAnimation라는 함수를 만드세요. 
   calcValues : 현재 섹션안에서 스크롤이 얼마나 되었는지를 계산해주는 함수
   playAnimation : 애니메이션에 대한 함수
-  
   
   sceneInfo에 아래와 같은 정보를 추가하고, 두 함수를 이용하여 첫 섹션의 스크롤이 처음에서 끝에 도달시에 messageA가 opacity가 0에서 1로 스크롤 시에 변하게 해주세요.
   objs: {
@@ -96,7 +50,6 @@ const sceneInfo = [
     messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
   },
 
-
   9. sceneInfo의 values에 아래와 같은 정보를 추가하고, 글씨가 생성될때 위치값이 살짝 올라오면서 생성되고 사라질때도 올라가면서 사라지게 만들어보세요.
   values: {
     messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
@@ -104,7 +57,6 @@ const sceneInfo = [
     messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
     messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
   },
-
 
   10. sceneInfo의 type이 normal인 요소는 본인의 content 높이만큼 적용되게 해주세요.
 
@@ -135,6 +87,12 @@ const sceneInfo = [
     14. 본인이 만들고싶은 방향으로 커스터마이징 해주세요.
 */
 
+/*
+  5. scrollLoop 함수에 현재 섹션의 이름에 맞춰서 바디에 id 값을 부여하는 기능을 넣으세요.
+  - 단, 새로고침 시에도 그 섹션의 이름에 맞는 바디 id 값이 나와야함
+  show-scene-현재섹션번호
+*/
+
 const sceneInfo = [
   {
     // 0
@@ -147,18 +105,13 @@ const sceneInfo = [
       messageB: document.querySelector("#scroll-section-0 .main-message.b"),
       messageC: document.querySelector("#scroll-section-0 .main-message.c"),
       messageD: document.querySelector("#scroll-section-0 .main-message.d"),
-      canvas: document.querySelector("#video-canvas-0"),
-      context: document.querySelector("#video-canvas-0").getContext("2d"),
-      videoImages: [],
     },
-    values: {
-      videoImageCount: 66,
-      imageSequence: [0, 65],
-      messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
-      messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
-      messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
-      messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
-    },
+    values : {
+      messageA_opacity_in : [0, 1], // opacity 0에서 1로
+      messageA_opacity_out : [1, 0]. // opacity 1에서 0로
+      // messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
+      // messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
+    }
   },
   {
     // 1
@@ -188,119 +141,98 @@ const sceneInfo = [
     },
   },
 ];
-
+let yOffset = 0; // window.scrollY 대신 쓸 변수
+let prevScrollHeight = 0; // 현재 스크롤 위치 window.scrollY보다 이전에 위치한 스크롤 섹션들의 스크롤 높이의 합
+let currentScene = 0; // 현재 활성화된 섹션
 function setLayout() {
+  // 각 스크롤 섹션의 높이 세팅
   for (let i = 0; i < sceneInfo.length; i++) {
-    if (sceneInfo[i].type === 'sticky') {
-      sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
-    } else if (sceneInfo[i].type === 'normal') {
-      sceneInfo[i].scrollHeight = sceneInfo[i].objs.container.offsetHeight;
-    }
+    sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
     sceneInfo[i].objs.container.style.height = `${sceneInfo[i].scrollHeight}px`;
   }
-}
+  // console.log(sceneInfo);
 
-function calcValues(values, currentYOffset) {
-  let rv;
-  const scrollHeight = sceneInfo[currentScene].scrollHeight;
-  const scrollRatio = currentYOffset / scrollHeight;
-
-  if (values.length === 3) {
-    const partScrollStart = values[2].start * scrollHeight;
-    const partScrollEnd = values[2].end * scrollHeight;
-    const partScrollHeight = partScrollEnd - partScrollStart;
-
-    if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
-      rv =
-        ((currentYOffset - partScrollStart) / partScrollHeight) *
-        (values[1] - values[0]) +
-        values[0];
-    } else if (currentYOffset < partScrollStart) {
-      rv = values[0];
-    } else if (currentYOffset > partScrollEnd) {
-      rv = values[1];
+  yOffset = window.scrollY;
+  let totalScrollHeight = 0;
+  for(let i=0; i<sceneInfo.length; i++){
+    totalScrollHeight += sceneInfo[i].scrollHeight;
+    if(totalScrollHeight >= yOffset) {
+      currentScene = i;
+      break;
     }
-  } else {
-    rv = scrollRatio * (values[1] - values[0]) + values[0];
   }
+  
+  document.body.setAttribute('id',`show-scene-${currentScene}`);
+}
+setLayout();
+
+function calcValues(values, currentYoffset){
+
+  // 현재섹션에서 얼마나 스크롤 헀는지 비율
+  let scrollRatio = currentYoffset / sceneInfo[currentScene].scrollHeight;
+  let rv = scrollRatio * (values[1] - values[0]) + values[0];
 
   return rv;
 }
-
-function playAnimation() {
+function playAnimation(){
   const objs = sceneInfo[currentScene].objs;
   const values = sceneInfo[currentScene].values;
-  const currentYOffset = yOffset - prevScrollHeight;
-  const scrollHeight = sceneInfo[currentScene].scrollHeight;
-  const scrollRatio = currentYOffset / scrollHeight;
+
+  const currentYoffset = yOffset - prevScrollHeight;
 
   switch (currentScene) {
     case 0:
-      const messageA_opacity_in = calcValues(
+      console.log('0 play');
+      let messageA_opacity_in = calcValues(
         values.messageA_opacity_in,
-        currentYOffset
+        currentYoffset
       );
-      const messageA_opacity_out = calcValues(
-        values.messageA_opacity_out,
-        currentYOffset
-      );
-      const messageA_translateY_in = calcValues(
-        values.messageA_translateY_in,
-        currentYOffset
-      );
-      const messageA_translateY_out = calcValues(
-        values.messageA_translateY_out,
-        currentYOffset
-      );
-
-      if (scrollRatio <= 0.22) {
-        objs.messageA.style.opacity = messageA_opacity_in;
-        objs.messageA.style.transform = `translateY(${messageA_translateY_in}%)`;
-      } else {
-        objs.messageA.style.opacity = messageA_opacity_out;
-        objs.messageA.style.transform = `translateY(${messageA_translateY_out}%)`;
-      }
+      objs.messageA.style.opacity = messageA_opacity_in;
 
       break;
   }
+
 }
-
-let yOffset = 0;
-let prevScrollHeight = 0;
-let currentScene = 0;
-let enterNewScene = false;
-
 function scrollLoop() {
-  enterNewScene = false;
-  prevScrollHeight = 0;
+  // console.log(window.scrollY);
+
+  prevScrollHeight = 0; //이전 스크롤의 높이값
   for (let i = 0; i < currentScene; i++) {
-    prevScrollHeight += sceneInfo[i].scrollHeight;
+    prevScrollHeight = prevScrollHeight + sceneInfo[i].scrollHeight;
+    //이전 스크롤 높이값은 이전 스크롤 높이 더하기 sceneInfo에 높이값을 넣어줌
   }
+  console.log(prevScrollHeight);
 
+  //yoffset 값은 prevScrolHeight 더하기 scenInfo.scrollHeight 값보다 클때
   if (yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
-    enterNewScene = true;
     currentScene++;
-    document.body.setAttribute('id', `show-scene-${currentScene}`);
+    document.body.setAttribute('id',`show-scene-${currentScene}`);
   }
 
+    //yoffset 값은 prevScrolHeight 더하기 scenInfo.scrollHeight 값보다 작을 때
   if (yOffset < prevScrollHeight) {
-    if (currentScene === 0) return;
-    enterNewScene = true;
+    if (currentScene === 0) return; // 예외처리 : -값으로 가는 브라우저가 있음(모바일)
     currentScene--;
-    document.body.setAttribute('id', `show-scene-${currentScene}`);
+    document.body.setAttribute('id',`show-scene-${currentScene}`);
+  }
+  console.log(currentScene);
+
+  //sceneInfo의 오브젝트에 컨테이너 border 스타일을 red로 변경
+  for (let i = 0; i < sceneInfo.length; i++) {
+    sceneInfo[i].objs.container.style.borderColor = "red";
   }
 
-  if (enterNewScene) return;
+  //그렇지 않을때는 blue로 변경함
+  sceneInfo[currentScene].objs.container.style.borderColor = "blue";
 
+  //이벤트 실행
   playAnimation();
 }
 
-document.body.setAttribute('id', `show-scene-${currentScene}`);
-
-window.addEventListener('resize', setLayout);
-window.addEventListener('scroll', () => {
-  yOffset = window.pageYOffset;
+window.addEventListener("resize", setLayout);
+window.addEventListener("load", setLayout);
+window.addEventListener("scroll", () => {
+  yOffset = window.scrollY; // 편의상 추후에 yOffset에 연산을 하기위해 변수로 만들어둠
   scrollLoop();
 });
 
-setLayout();
