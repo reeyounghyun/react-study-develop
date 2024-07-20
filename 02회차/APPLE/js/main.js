@@ -1,3 +1,4 @@
+
 /* 
   1. 각 섹션에 대한 정보를 담은 배열을 만드세요.
   각 섹션에 대한 정보는 다음과 같습니다.
@@ -6,6 +7,7 @@
   - heightNum | 브라우저 높이의 X배로 각 섹션의 높이값 세팅
   - scrollHeight | 각 섹션의 스크롤 높이
   - 각 섹션 요소
+
 
   2. setLayout이라는 함수를 만드세요. setLayout이라는 함수는 아래와 같은 기능을 합니다.
   각 섹션의 높이값을 설정하는 함수 : 브라우저 높이 * 각 씬의 heightNum
@@ -25,6 +27,7 @@
   6. calcValues라는 함수와 playAnimation라는 함수를 만드세요. 
   calcValues : 현재 섹션안에서 스크롤이 얼마나 되었는지를 계산해주는 함수
   playAnimation : 애니메이션에 대한 함수
+  
   
   sceneInfo에 아래와 같은 정보를 추가하고, 두 함수를 이용하여 첫 섹션의 스크롤이 처음에서 끝에 도달시에 messageA가 opacity가 0에서 1로 스크롤 시에 변하게 해주세요.
   objs: {
@@ -50,6 +53,7 @@
     messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
   },
 
+
   9. sceneInfo의 values에 아래와 같은 정보를 추가하고, 글씨가 생성될때 위치값이 살짝 올라오면서 생성되고 사라질때도 올라가면서 사라지게 만들어보세요.
   values: {
     messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
@@ -57,6 +61,7 @@
     messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
     messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
   },
+
 
   10. sceneInfo의 type이 normal인 요소는 본인의 content 높이만큼 적용되게 해주세요.
 
@@ -92,7 +97,6 @@
   - 단, 새로고침 시에도 그 섹션의 이름에 맞는 바디 id 값이 나와야함
   show-scene-현재섹션번호
 */
-
 const sceneInfo = [
   {
     // 0
@@ -107,10 +111,8 @@ const sceneInfo = [
       messageD: document.querySelector("#scroll-section-0 .main-message.d"),
     },
     values : {
-      messageA_opacity_in : [0, 1], // opacity 0에서 1로
-      messageA_opacity_out : [1, 0]. // opacity 1에서 0로
-      // messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
-      // messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
+      messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+      messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
     }
   },
   {
@@ -141,9 +143,11 @@ const sceneInfo = [
     },
   },
 ];
+
 let yOffset = 0; // window.scrollY 대신 쓸 변수
 let prevScrollHeight = 0; // 현재 스크롤 위치 window.scrollY보다 이전에 위치한 스크롤 섹션들의 스크롤 높이의 합
 let currentScene = 0; // 현재 활성화된 섹션
+
 function setLayout() {
   // 각 스크롤 섹션의 높이 세팅
   for (let i = 0; i < sceneInfo.length; i++) {
@@ -162,16 +166,39 @@ function setLayout() {
     }
   }
   
+
   document.body.setAttribute('id',`show-scene-${currentScene}`);
 }
 setLayout();
 
 function calcValues(values, currentYoffset){
+  let rv;
 
+  const scrollHeight = sceneInfo[currentScene].scrollHeight;
   // 현재섹션에서 얼마나 스크롤 헀는지 비율
   let scrollRatio = currentYoffset / sceneInfo[currentScene].scrollHeight;
-  let rv = scrollRatio * (values[1] - values[0]) + values[0];
+  
+  if(values.length === 3){
+    const partScrollStart = values[2].start * scrollHeight;
+    const partScrollEnd = values[2].end * scrollHeight;
+    const partScrollHeight = partScrollEnd - partScrollStart;
 
+    if(
+      currentYoffset >= partScrollStart &&
+      currentYoffset <= partScrollEnd
+    ){
+      rv = ((currentYoffset - partScrollStart) / partScrollHeight) * 
+      (values[1] - values[0]) + values[0];
+    } else if (currentYoffset < partScrollStart){
+      rv = values[0];
+    } else if (currentYoffset> partScrollStart){
+      rv = values[1];
+    }
+  } else {
+    rv = scrollRatio * (values[1] - values[0]) + values[0];
+  }
+  
+  
   return rv;
 }
 function playAnimation(){
@@ -195,21 +222,18 @@ function playAnimation(){
 }
 function scrollLoop() {
   // console.log(window.scrollY);
-
   prevScrollHeight = 0; //이전 스크롤의 높이값
   for (let i = 0; i < currentScene; i++) {
     prevScrollHeight = prevScrollHeight + sceneInfo[i].scrollHeight;
-    //이전 스크롤 높이값은 이전 스크롤 높이 더하기 sceneInfo에 높이값을 넣어줌
+      //이전 스크롤 높이값은 이전 스크롤 높이 더하기 sceneInfo에 높이값을 넣어줌
   }
   console.log(prevScrollHeight);
-
   //yoffset 값은 prevScrolHeight 더하기 scenInfo.scrollHeight 값보다 클때
   if (yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
     currentScene++;
     document.body.setAttribute('id',`show-scene-${currentScene}`);
   }
-
-    //yoffset 값은 prevScrolHeight 더하기 scenInfo.scrollHeight 값보다 작을 때
+   //yoffset 값은 prevScrolHeight 더하기 scenInfo.scrollHeight 값보다 작을 때
   if (yOffset < prevScrollHeight) {
     if (currentScene === 0) return; // 예외처리 : -값으로 가는 브라우저가 있음(모바일)
     currentScene--;
@@ -222,10 +246,10 @@ function scrollLoop() {
     sceneInfo[i].objs.container.style.borderColor = "red";
   }
 
-  //그렇지 않을때는 blue로 변경함
+   //그렇지 않을때는 blue로 변경함
   sceneInfo[currentScene].objs.container.style.borderColor = "blue";
 
-  //이벤트 실행
+ //이벤트 실행
   playAnimation();
 }
 
@@ -235,4 +259,3 @@ window.addEventListener("scroll", () => {
   yOffset = window.scrollY; // 편의상 추후에 yOffset에 연산을 하기위해 변수로 만들어둠
   scrollLoop();
 });
-
