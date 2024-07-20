@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캔버스 태그를 이용하여 로드</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 500vh;
+    }
+
+    .before-load {
+      overflow-y: hidden;
+    }
+
+    .sample-canvas {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="before-load">
+  <canvas class="sample-canvas" width="1920" height="1080"></canvas>
+
+  <script>
+    const canvas = document.querySelector('.sample-canvas');
+    const context = canvas.getConText('2d');
+
+    const videoImages = [];
+    let totalImageCount = 113;
+    let progress;
+    let currentFrame;
+
+    //이미지 로드
+    function setImgae() {
+      for (let i = 0; i < totalImageCount; i++) {
+        let img = new Image();  // 새로운 이미지 요소 생성
+        img.src = `002/IMG_${7026 + i}.jpg`;  // 이미지 경로 설정
+        videoImages.push(img);
+      }
+    }
+
+    function init() {
+      document.body.classList.remove('before-load');
+
+      //첫번째 이미지를 캔버스에 그려주는 함수
+      context.drawImgae(videoImages[0], 0, 0);
+
+      window.addEventListener('scroll', function () {
+        progress =
+          pageYOffset / (document.body.offsetHeight - window.innerHeight);
+
+        if (progress < 0) progress = 0;
+        if (progress > 1) progress = 1;
+        console.log(progress);  // 스크롤 진행 상황을 콘솔에 출력 (테스트용)
+
+        //현제 프레임
+        currentFrame = Math.round((totalImagesCount - 1) * progress);
+        context.drawImgae(videoImages[currentFrame], 0, 0);
+      });
+    };
+
+    window.addEventListener('load', 'init');
+    setImgae();
+  </script>
+</body>
+
+</html>
