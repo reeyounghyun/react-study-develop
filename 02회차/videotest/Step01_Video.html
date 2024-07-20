@@ -16,14 +16,14 @@
       height: 500vh;
     }
 
-    .before-load {
+    body.before-load {
       overflow-y: hidden;
     }
 
     .sample-video {
       position: fixed;
-      left: 0;
       top: 0;
+      left: 0;
       width: 100%;
     }
   </style>
@@ -45,7 +45,7 @@
           pageYOffset / (document.body.offsetHeight - window.innerHeight);
         //console.log(progress)
 
-        videoElme.currentTime = videoElme.duration = progress;  //렉이 잘 걸려 사용하지 않음
+        videoElem.currentTime = videoElem.duration * progress;;  //렉이 잘 걸려 사용하지 않음
       });
 
     };
