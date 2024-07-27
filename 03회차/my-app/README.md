@@ -26,3 +26,20 @@
     -onClick = [실행할함수];
     -onClick = {function()(실행할함수)};
     -onClick = {() => (실행할함수)};
+
+
+## 8. 라이브 설치는  -npm(노드패키지메니저) i  / npm install 라이브명
+
+    - 프로젝트 삭제 npm remove
+    - npx - 한 번 실행 명령어
+
+
+## 9. 모든 데이터는 변수가 아닌 state 값에 담아서 사용
+
+
+  let [a, b] = useState([0,0,0]);
+  let [like, setLike] = useState([0,0,0]);
+  setLike(값변경) => like = 값
+
+## 10. 변수대신 사용하는 이유?
+    - State는 변동사항이 생기면 State를 사용하고 있는 html도 자동으로 재랜더링 됨.
