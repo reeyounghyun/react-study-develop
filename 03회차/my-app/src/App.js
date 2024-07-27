@@ -12,6 +12,7 @@ function App() {
     <>
       <p className='red' style={{backgroundColor: 'yellow', fontSize:"30px"}}>{hi}</p> 
       <div onClick={func1}>click</div>
+      <div onClick={func1}>click</div>
     </>
   );
 }
