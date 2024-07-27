@@ -35,8 +35,6 @@
 
 
 ## 9. 모든 데이터는 변수가 아닌 state 값에 담아서 사용
-
-
   let [a, b] = useState([0,0,0]);
   let [like, setLike] = useState([0,0,0]);
   setLike(값변경) => like = 값

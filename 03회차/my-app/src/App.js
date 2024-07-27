@@ -9,8 +9,8 @@ function App() {
   //let [a, setA] = useState(0);
   let [b, setB] = useState(0);
   let [c, setC] = useState(0);
-  let [like, setLike] = useState([0,0,0]);
-  let [title, setTitle] = useState(['토너추천','로션추천','앰플추천']);
+  let [like, setLike] = useState([0,0,0]); //좋아요 state
+  let [title, setTitle] = useState(['토너추천','로션추천','앰플추천']); // 타이틀 state
 
   return (
     <>
@@ -29,13 +29,6 @@ function App() {
     <div>
       <div className='flex justify-between items-center p-[20ox] border-b border-[#111]'> 
         <h4 onClick={()=>{
-          /**
-           State 변경함수 작동원리
-           1) 기존 State ===  신규 State 변경하지 않음 
-           기존 상태와 신규 상태가 같으면 변경되지 않음
-
-           2)Array는 참조가 같기 깨문
-           **/
           let copy = [...like];
           copy[0] = copy[0] + 1;
           setLike(copy);
