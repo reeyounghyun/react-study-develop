@@ -26,5 +26,5 @@ function App() {
     </div>
   );
 }
-
+//인스타그램 정답 깃 https://github.com/seik1224/react-ex01insta-build
 export default App;
