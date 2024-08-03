@@ -29,12 +29,12 @@ const List = () => {
 
 
   return (
-    <div className='bg-slate-300 h-full'>
+    <div className='h-full bg-slate-300'>
       <ul className='p-5'>
         {
           title.map((v,i)=>{
             return(
-              <li key={v} className='bg-white shadow-md rounded-2xl p-5 mb-5'>
+              <li key={v} className='p-5 mb-5 bg-white shadow-md rounded-2xl'>
                 <h4 className='mb-2' onClick={()=>{
                   setDetail(!detail)
                   let copy = [...hit];
@@ -43,7 +43,7 @@ const List = () => {
                   setT(i);
                 }}>{title[i]}</h4>
                 <p className='mb-2'>{`${year}-${month}-${date}`}</p>
-                <div className='mb-2 flex'>
+                <div className='flex mb-2'>
                   <p>조회수</p>
                   <p>{hit[i]}</p>
                 </div>
@@ -91,7 +91,7 @@ const List = () => {
 const Detail = (props) => {
   console.log(props);
   return (
-    <div className='w-full bg-black text-white py-5'
+    <div className='w-full py-5 text-white bg-black'
     style={{backgroundColor:props.color, color:props.textBlack}}>
       <h4 className='mb-2'>{props.title[props.t]}</h4>
       <p className='mb-2'>{props.nowDate}</p>
