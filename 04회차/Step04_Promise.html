@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step04_Promise.html</title>
+    <style>
+    </style>
+</head>
+<body>
+<script>
+   /*
+    [Promise]
+    성공하면 than(), 실패하면 catch() 실행
+    비동기 작업의 완료 또는 실패를 나타내는 객체
+
+    let 변수명 = new Promise();
+      
+    [시용]
+    변수명.then(funcion(){
+      
+    })
+   */
+   let promise = new Promise(function(success, fail){
+            let cal = 1 + 1;
+            success(cal);
+        });
+
+        promise.then(function(result){
+            console.log(`연산성공 ${result}`)
+        })
+        .catch(function(err){
+            console.log(`연산실패 ${err}`)
+        })
+</script>
+</body>  
+</html>

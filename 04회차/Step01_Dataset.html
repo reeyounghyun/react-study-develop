@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step01_Dataset.html</title>
+    <title>Dataset 실습</title>
 <style>
     div{
         width: 100px;
@@ -13,15 +13,14 @@
 </style>
 </head>
 <body>
-    <div date-opacity="0.2">div1</div>
-    <div date-opacity="0.4">div1</div>
-    <div date-opacity="0.6">div1</div>
-    <div date-opacity="0.8">div1</div>
-    <div date-opacity="1.0">div1</div>
-
+    <div data-opacity="0.2">div1</div>
+    <div data-opacity="0.4">div1</div>
+    <div data-opacity="0.6">div1</div>
+    <div data-opacity="0.8">div1</div>
+    <div data-opacity="1.0">div1</div>
     <script>
         const divs = document.querySelectorAll('div');
-        for(let i = 0; i <divs.length; i++){
+        for(let i= 0; i<divs.length; i++){
             divs[i].addEventListener('click', function(){
                 this.style.background = 'green';
                 this.style.opacity = this.dataset.opacity;
