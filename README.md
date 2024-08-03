@@ -2,3 +2,6 @@
 
 2023년7월19일 생성됨
 SBS아카데미컴퓨터아트학원 리엑트(React) 수업 저장소
+
+https://developers.google.com/speed/libraries?hl=ko#jquery
+https://github.com/seik1224
