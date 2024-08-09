@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+.en-txt {
+  font-family: "Lobster", cursive !important;
+}
+
+.playtxt1 {
+  animation: playtxt1 forwards infinite linear 20s;
+}
+.playtxt2 {
+  animation: playtxt2 forwards infinite linear 20s;
+}
+.text-stroke {
+  -webkit-text-stroke: 1px #ff541e;
+  text-stroke: 1px #ff541e;
+}
+
+@keyframes playtxt1 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes playtxt2 {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* [ 9 - 1 ] */
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+img {
+  transform: rotateY(0deg);
+  transition: transform 1s ease;
+}
+
+img.animate {
+  transform: rotateY(720deg);
+}
+
+/* 실습 2 header */
+.navbar-brand {
+  color: #fff;
+}
+nav.fixed .navbar-brand,
+nav.fixed a,
+nav.fixed button {
+  color: #ff541e !important;
+}

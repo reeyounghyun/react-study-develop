@@ -1,7 +1,18 @@
-# ReactProject
+## 1. 이미지 넣는 법
 
-2023년7월19일 생성됨
-SBS아카데미컴퓨터아트학원 리엑트(React) 수업 저장소
+1. src에 직접 이미지 넣어서 사용가능
+./이미지폴더/이미지.jpg
 
-https://developers.google.com/speed/libraries?hl=ko#jquery
-https://github.com/seik1224
+2. 리액트에서 추천하는 방법
+import 이미지 from './이미지경로/이미지.jpg'
+{이미지}
+
+3. public 폴더 이용
+/이미지.jpg
+
+서브페이지 만들때 이미지 경로가 안먹히는 문제!
+sbs.com/about/  ->  /about/이미지.jpg
+
+<해결방안>
+src={`${process.env.PUBLIC_URL}/이미지.jpg`}
+ 
