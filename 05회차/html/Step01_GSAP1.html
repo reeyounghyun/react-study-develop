@@ -66,6 +66,12 @@
       code {
         position: absolute;
       }
+
+      .test{
+        width: 100px;
+        height: 100px;
+        background: red;
+      }
     </style>
   </head>
   <body>
@@ -147,6 +153,7 @@
           gsap.set(".circle", { x: 40, fill: 'blue', });
         </code>
       </div>
+      <div class="test"></div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
@@ -229,6 +236,18 @@
               );
         }
       });
+
+
+      const test = document.querySelector('.test');
+
+      // gsap.to(test, { x: 50, background: 'blue', });
+      //빨강 -> 파란색 변경
+
+      // gsap.from(test, { x: -50, background: 'blue', });
+      //파란색 -> 빨강색
+      
+      gsap.fromTo(test,{ x: -50, background: 'blue', }, { x: 50, background: 'green' });
+
     </script>
   </body>
 </html>
