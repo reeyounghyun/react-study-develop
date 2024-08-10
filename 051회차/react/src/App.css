@@ -1,0 +1,50 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.imgBox {clip-path:inset(30%);}
+.imgBox:before {content: '';width:140px;height: 140px;border-radius: 100%;border: 1px solid #fff;background: url(/public/readMore2.png) no-repeat center/30px;position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%) rotate(45deg);z-index: 2;transition: all .3s;}
+.imgBox:after {content: '';width: 0%;height: 0%;border-radius: 100%;background: #fff url(/public/readMore3.png) no-repeat center/130px;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);z-index: 1;animation-name:spin2;animation-duration: 10s;animation-timing-function: linear;animation-iteration-count: infinite;}
+.imgBox:hover img {filter: brightness(50%); transition: .3s;}
+.imgBox:hover::before {opacity: 1;}
+.imgBox:hover::after {opacity: 1;width: 140px;height: 140px;}
+
+@keyframes spin2 {
+  0% {transform: translate(-50%,-50%) rotate(0deg);}
+  100% {transform: translate(-50%,-50%) rotate(360deg);}
+}
